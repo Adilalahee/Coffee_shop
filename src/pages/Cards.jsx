@@ -1,11 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
-const Cards = ({coffee}) => {
+
+const Cards = ({coffee,handleRemove}) => {
+    const {pathname}=useLocation();
     const {id,name,image,category,origin,
         type,
         rating,
         popularity}=coffee;
+    
     return (
         <div className='flex relative'>
             <Link
@@ -25,7 +28,13 @@ const Cards = ({coffee}) => {
                     <p>{popularity}</p>
                 </div>
             </Link>
-            
+            {
+                pathname==='/Dashboard' && (
+                    <div onClick={()=>handleRemove(id)} className='absolute btn btn-warning  -top-5 -right-5'>
+                        Delete 
+                    </div>
+                )
+            }
         </div>
     );
 };
